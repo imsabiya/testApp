@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { init } from "onfido-sdk-ui";
+
 import axios from "axios";
 
 import "./App.css";
@@ -7,7 +8,6 @@ import "./App.css";
 function App() {
   const [onfidoInstance, setOnfidoInstance] = useState(null);
   const envToken = process.env.REACT_APP_TOKEN;
-  
 
   const fetchToken = async () => {
     try {
@@ -20,8 +20,7 @@ function App() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              `Token token=${envToken}`,
+            Authorization: `Token token=${envToken}`,
           },
         }
       );
@@ -37,8 +36,7 @@ function App() {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization:
-              `Token token=${envToken}`,
+              Authorization: `Token token=${envToken}`,
             },
           }
         );
@@ -56,8 +54,7 @@ function App() {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization:
-              `Token token=${envToken}`,
+              Authorization: `Token token=${envToken}`,
             },
           }
         );
@@ -69,7 +66,7 @@ function App() {
   };
 
   const submitCheck = async () => {
-    try{
+    try {
       const response = await axios.post(
         "https://209b1321-f209-4323-bfe2-185d7d1141a9-00-3ujg2stfczqbx.riker.replit.dev/api/checks",
         {
@@ -79,16 +76,14 @@ function App() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-            `Token token=${envToken}`,
+            Authorization: `Token token=${envToken}`,
           },
         }
       );
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-  }
+  };
 
   const initOnfido = async () => {
     try {
@@ -114,6 +109,7 @@ function App() {
           //   // Allow user to retry verification...
           // }
           // submitCheck()
+
         },
         onError: (error) => {
           console.error("Onfido error", error);
@@ -130,6 +126,7 @@ function App() {
             },
           },
           "face",
+          "complete",
         ],
       });
       setOnfidoInstance(instance);
